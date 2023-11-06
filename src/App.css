@@ -1,0 +1,12 @@
+.item {
+  overflow: visible;
+  stroke: #06b6d4;
+  stroke-width: 10;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.drag-placeholder {
+  border: 1px dashed black;
+  aspect-ratio: 1 / 1;
+}
