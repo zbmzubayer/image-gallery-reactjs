@@ -1,5 +1,4 @@
 import { Image } from '@/constants';
-import ImageGridItem from './ImageGridItem';
 import { ImagePlusIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { useRef } from 'react';
@@ -21,11 +20,8 @@ export default function ImageGrid({
   selectedImages,
   onChangeHandler,
 }: ImageGridProps) {
-  const gridContainerRef = useRef<HTMLDivElement>(null);
   const dragItem = useRef<number | undefined>(undefined);
   const dragOverItem = useRef<number | undefined>(undefined);
-  const dragItemNode = useRef<HTMLDivElement | null>(null);
-  const dragOverItemNode = useRef<HTMLDivElement | null>(null);
 
   const handleAddImage = () => {
     if (addImages?.length === 0) {
@@ -39,7 +35,6 @@ export default function ImageGrid({
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
     dragItem.current = index;
-    dragItemNode.current = e.currentTarget;
   };
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>, index: number) => {
@@ -47,9 +42,7 @@ export default function ImageGrid({
     if (dragItem.current == dragOverItem.current) return;
   };
 
-  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>, index: number) => {};
-
-  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+  const handleDragEnd = () => {
     if (dragItem.current === dragOverItem.current) return;
     const imageClone = [...images];
     if (dragItem.current !== undefined && dragOverItem.current !== undefined) {
@@ -83,10 +76,7 @@ export default function ImageGrid({
           <p className="text-xl text-gray-500">No images found</p>
         </div>
       )}
-      <div
-        ref={gridContainerRef}
-        className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6"
-      >
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
         {images.map((image, index) => (
           <div
             key={image.id}
@@ -96,8 +86,7 @@ export default function ImageGrid({
             draggable
             onDragStart={(e) => handleDragStart(e, index)}
             onDragEnter={(e) => handleDragEnter(e, index)}
-            onDragLeave={(e) => handleDragLeave(e, index)}
-            onDragEnd={(e) => handleDragEnd(e, index)}
+            onDragEnd={handleDragEnd}
             onDragOver={(e) => e.preventDefault()}
           >
             <img

@@ -1,13 +1,13 @@
 import { useState, useRef } from 'react';
 import { XIcon, TrashIcon } from 'lucide-react';
-import './App.css';
+import { Toaster, toast } from 'sonner';
 import { Image, allImages } from '@/constants';
 import Header from '@/components/Header';
-import { cn } from './lib/utils';
-import { Button, buttonVariants } from '@/components/ui/button';
-import ImageGrid from './components/ImageGrid';
 import { TrashDialog } from '@/components/TrashDialog';
-import { Toaster, toast } from 'sonner';
+import ImageGrid from '@/components/ImageGrid';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import './App.css';
 
 function App() {
   const [images, setImages] = useState<Image[]>(allImages);
