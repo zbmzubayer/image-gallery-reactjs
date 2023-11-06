@@ -33,13 +33,12 @@ export default function ImageGrid({
     }
   };
 
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+  const handleDragStart = (index: number) => {
     dragItem.current = index;
   };
 
-  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+  const handleDragEnter = (index: number) => {
     dragOverItem.current = index;
-    if (dragItem.current == dragOverItem.current) return;
   };
 
   const handleDragEnd = () => {
@@ -84,8 +83,8 @@ export default function ImageGrid({
               image.featured && 'col-span-2 row-span-2 row-start-1'
             }`}
             draggable
-            onDragStart={(e) => handleDragStart(e, index)}
-            onDragEnter={(e) => handleDragEnter(e, index)}
+            onDragStart={() => handleDragStart(index)}
+            onDragEnter={() => handleDragEnter(index)}
             onDragEnd={handleDragEnd}
             onDragOver={(e) => e.preventDefault()}
           >
